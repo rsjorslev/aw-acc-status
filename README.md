@@ -104,7 +104,9 @@ Example response:
 It's the raw response from the AW endpoints so a lot of the data does not make sense in this context but the critical parts are `IsSuccess` and `Message` which can be used for monitoring and reporting purposes.
 
 ### /status/props
-Calling this endpoint does the same as clicking the "Test Connection" in `System > Enterprise Integration > Directory Services` in the AW console.
+This endpoint shows the configured properties which are mapped using `@ConfigurationProperties`.  
+Use this to verify that all properties are valid.  
+**NOTE:** Password is not shown here so verify that manually.
 
 Returns a JSON response with a boolean value for the status as well as a message.  
 
@@ -127,4 +129,4 @@ Example response:
 ```
 
 Note that the actual endpoints required to perform the various operations are already defined in application.properties contained within the JAR file.  
-These properties should not be changed.
+These properties should not be changed however as noted in the Setup section above tenant, login and user is **required** to be provided.
