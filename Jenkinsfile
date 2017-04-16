@@ -1,7 +1,7 @@
 pipeline {
   agent any
   stages {
-    stage('Initialize') {
+    stage('Init') {
       steps {
         sh '''
               echo "PATH = ${PATH}"
@@ -12,7 +12,7 @@ pipeline {
     stage('Build') {
       steps {
         echo 'build'
-        sh 'mvn clean install -Dmaven.test.skip=true'
+        sh 'mvn clean install'
       }
     }
     stage('Test') {
