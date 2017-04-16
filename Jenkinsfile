@@ -12,7 +12,7 @@ pipeline {
     stage('Build') {
       steps {
         echo 'build'
-        sh 'mvn --version'
+        sh 'mvn clean install -Dmaven.test.skip=true'
       }
     }
     stage('Test') {
