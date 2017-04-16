@@ -1,15 +1,12 @@
 pipeline {
   agent any
-  tools {
-    maven 'maven339'
-  }
   stages {
-    stage ('Initialize') {
+    stage('Initialize') {
       steps {
-          sh '''
+        sh '''
               echo "PATH = ${PATH}"
               echo "M2_HOME = ${M2_HOME}"
-          ''' 
+          '''
       }
     }
     stage('Build') {
@@ -28,5 +25,8 @@ pipeline {
         echo 'deploy'
       }
     }
+  }
+  tools {
+    maven 'maven339'
   }
 }
