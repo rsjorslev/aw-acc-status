@@ -4,7 +4,7 @@ pipeline {
     stage('Build') {
       steps {
         echo 'build'
-        sh 'mvn --version'
+        tool 'maven339'
       }
     }
     stage('Test') {
