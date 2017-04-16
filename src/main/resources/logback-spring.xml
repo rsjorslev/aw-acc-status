@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+    <include resource="org/springframework/boot/logging/logback/base.xml"/>
+
+    <!-- Appender for the Spring and dependencies-->
+    <appender name="TIME_BASED_FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>./logs/spring_%d{yyyy-MM-dd}.log</fileNamePattern>
+            <maxHistory>30</maxHistory>
+        </rollingPolicy>
+        <encoder>
+            <pattern>${FILE_LOG_PATTERN}</pattern>
+        </encoder>
+    </appender>
+
+    <!-- Appender for the application - only used for com.example package-->
+    <appender name="APP_TIME_BASED_FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>./logs/app_%d{yyyy-MM-dd}.log</fileNamePattern>
+            <maxHistory>30</maxHistory>
+        </rollingPolicy>
+        <encoder>
+            <pattern>${FILE_LOG_PATTERN}</pattern>
+        </encoder>
+    </appender>
+
+    <!-- Syslog appender-->
+    <appender name="SYSLOG" class="ch.qos.logback.classic.net.SyslogAppender">
+        <syslogHost>172.16.72.146</syslogHost>
+        <facility>LOCAL0</facility>
+        <suffixPattern>%thread: %-5level %logger{36} - %msg%n</suffixPattern>
+    </appender>
+
+    <logger name="com.example" level="DEBUG">
+        <appender-ref ref="APP_TIME_BASED_FILE"/>
+        <appender-ref ref="SYSLOG"/>
+    </logger>
+    <root LEVEL="INFO">
+        <appender-ref ref="TIME_BASED_FILE" />
+    </root>
+</configuration>

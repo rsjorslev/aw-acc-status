@@ -18,16 +18,17 @@ public class AwProperties {
         private String tenant;
         private String login;
         private String loginUser;
-        private String cloudConnector;
+        //private String cloudConnector;
         private String accTest;
-        private String directoryService;
+        //private String directoryService;
         private String directoryTest;
+        private String requestVerificationToken;
     }
 
     @Data
     public static class Login {
         private String user;
-        @JsonIgnore // Don't show the password when serializing the AwProperties in the AccController
+        @JsonIgnore // Don't show the password when serializing the AwProperties in AccController
         private String password;
     }
 
