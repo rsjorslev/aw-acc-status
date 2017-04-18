@@ -14,7 +14,7 @@ echo "M2_HOME = ${M2_HOME}"
 }
 stage('Build') {
 steps {
-sh 'mvn install'
+sh 'mvn clean install'
 }
 }
 stage('Test') {
