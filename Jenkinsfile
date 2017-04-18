@@ -14,11 +14,14 @@ pipeline {
 				}
 				stage('Build') {
 						steps {
-							def username = 'rsjorslev'
+                            node('test') {
+                            def username = 'rsjorslev'
 							echo 'hello Mr. ${username}'
-		def server = Artifactory.server "artifactory521"
-                def rtMaven = Artifactory.newMavenBuild()
 
+                            }
+/* 	def server = Artifactory.server "artifactory521"
+                def rtMaven = Artifactory.newMavenBuild()
+*/
 									sh 'mvn install'
 							}
 				}
