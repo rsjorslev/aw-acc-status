@@ -15,7 +15,6 @@ pipeline {
 				stage('Build') {
 					def server = Artifactory.server "artifactory521"
 					def rtMaven = Artifactory.newMavenBuild()					
-					
 						steps {
 									sh 'mvn install'
 							}
