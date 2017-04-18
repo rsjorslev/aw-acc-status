@@ -1,9 +1,5 @@
 pipeline {
 		agent any
-        node {
-                def server = Artifactory.server "artifactory521"
-                def rtMaven = Artifactory.newMavenBuild()
-        }
 		tools {
 				maven 'maven339'
 		}
@@ -18,6 +14,11 @@ pipeline {
 				}
 				stage('Build') {
 						steps {
+							def username = 'rsjorslev'
+							echo 'hello Mr. ${username}'
+		def server = Artifactory.server "artifactory521"
+                def rtMaven = Artifactory.newMavenBuild()
+
 									sh 'mvn install'
 							}
 				}
