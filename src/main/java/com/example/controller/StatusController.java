@@ -1,5 +1,6 @@
 package com.example.controller;
 
+import com.example.exceptions.AuthenticationException;
 import com.example.model.StatusResponse;
 import com.example.service.AirWatchStatusService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,13 +20,12 @@ public class StatusController {
     }
 
     @RequestMapping(value = "/acc", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-    public StatusResponse accStatus() {
+    public StatusResponse accStatus() throws AuthenticationException {
         return service.getAccStatus();
     }
 
     @RequestMapping(value = "/ad", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-    public StatusResponse adStatus() {
+    public StatusResponse adStatus() throws AuthenticationException {
         return service.getDirectoryStatus();
     }
-
 }

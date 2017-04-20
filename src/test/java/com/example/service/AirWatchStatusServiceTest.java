@@ -22,12 +22,10 @@ public class AirWatchStatusServiceTest {
     private AirWatchStatusService service;
 
     private final String JSON_RESPONSE_FAILED   = "{\"IsSuccess\": false, \"Message\": \"Cloud Connector is not connected to AWCM.\"}";
-    private final String JSON_RESPONSE_SUCCESS = "{\"IsSuccess\": true, \"Message\": \"Cloud Connector is active.\"}";
-
+    private final String JSON_RESPONSE_SUCCESS  = "{\"IsSuccess\": true, \"Message\": \"Cloud Connector is active.\"}";
 
     @Before
     public void setUp() throws Exception {
-
     }
 
     @Test

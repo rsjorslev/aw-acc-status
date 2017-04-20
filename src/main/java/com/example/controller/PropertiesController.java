@@ -22,5 +22,4 @@ public class PropertiesController {
     public AwProperties getProps() {
         return props;
     }
-
 }

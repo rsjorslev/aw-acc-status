@@ -12,6 +12,8 @@ public class TokenTool {
 
     public static String extractRequestVerificationToken(String input) {
 
+        log.trace("html input as passed into method: {}", input);
+
         String PATTERN = "name=\"__RequestVerificationToken\" type=\"hidden\" value=\"(.*?)\"";
         String token = null;
 
