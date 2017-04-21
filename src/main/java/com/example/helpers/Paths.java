@@ -8,7 +8,7 @@ public class Paths {
 
     private final AwProperties props;
 
-    private static String TENANT_URL;
+    static String TENANT_URL;
     public static String TEST_ACC_CONNECTION;
     public static String TEST_DIRECTORY;
     public static String USER_NAME;

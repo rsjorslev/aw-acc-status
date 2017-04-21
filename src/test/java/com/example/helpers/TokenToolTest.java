@@ -22,16 +22,16 @@ public class TokenToolTest {
     private Instant TWENTY_MINUTES_AGO      = Instant.now().minus(Duration.ofMinutes(20));
     private Instant TWENTY_TWO_MINUTES_AGO  = Instant.now().minus(Duration.ofMinutes(22));
 
+    //TODO: This runs before every test but is only needed for testTokenCanBeExtractedFromAWLoginPage - how can i change/optimize that?
     @Before
     public void setUp() throws Exception {
         Resource resource = new ClassPathResource("AWLoginPage.html");
         String contents = new String(Files.readAllBytes(resource.getFile().toPath()));
-
         TOKEN_ACTUAL = TokenTool.extractRequestVerificationToken(contents);
     }
 
     @Test
-    public void extractRequestVerificationTokenTest() throws Exception {
+    public void testTokenCanBeExtractedFromAWLoginPage() throws Exception {
 
         assertThat(TOKEN_ACTUAL).isEqualTo(TOKEN_EXPECTED);
 

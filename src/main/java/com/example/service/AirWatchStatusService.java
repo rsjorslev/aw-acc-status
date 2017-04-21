@@ -13,6 +13,8 @@ import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.client.RestTemplate;
 
+import java.time.Instant;
+
 @Service
 @Slf4j
 public class AirWatchStatusService {
@@ -38,32 +40,37 @@ public class AirWatchStatusService {
     }
 
     public StatusResponse getAccStatus() throws AuthenticationException {
-        ResponseEntity<StatusResponse> accTestResponse = this.getStatus(Paths.TEST_ACC_CONNECTION);
-        log.debug("ACC Test Response: {}", accTestResponse.getBody());
-        return accTestResponse.getBody();
+        StatusResponse accTestResponse = this.getStatus(Paths.TEST_ACC_CONNECTION);
+        log.debug("ACC Test Response: {}", accTestResponse);
+        return accTestResponse;
     }
 
     public StatusResponse getDirectoryStatus() throws AuthenticationException {
-        ResponseEntity<StatusResponse> adTestResponse = this.getStatus(Paths.TEST_DIRECTORY);
-        log.debug("Directory Test Response: {}", adTestResponse.getBody());
-        return adTestResponse.getBody();
+        StatusResponse adTestResponse = this.getStatus(Paths.TEST_DIRECTORY);
+        log.debug("Directory Test Response: {}", adTestResponse);
+        return adTestResponse;
     }
 
-    private ResponseEntity<StatusResponse> getStatus(String endpoint) throws AuthenticationException {
-        HttpHeaders accTestHeaders = new HttpHeaders();
-        accTestHeaders.add("Content-Type", "application/x-www-form-urlencoded");
-        accTestHeaders.add("Cookie", loginService.getCookies());
+    private StatusResponse getStatus(String endpoint) throws AuthenticationException {
+        HttpHeaders headers = new HttpHeaders();
+        headers.add("Content-Type", "application/x-www-form-urlencoded");
+        headers.add("Cookie", loginService.getCookies());
 
         MultiValueMap<String, String> accMap = new LinkedMultiValueMap<>();
         accMap.add("__RequestVerificationToken", loginService.getRequestVerificationToken());
 
-        HttpEntity accEntity = new HttpEntity<>(accMap, accTestHeaders);
+        HttpEntity httpEntity = new HttpEntity<>(accMap, headers);
 
-        return template.exchange(
+        StatusResponse statusResponse = template.exchange(
                 endpoint,
                 HttpMethod.POST,
-                accEntity,
+                httpEntity,
                 StatusResponse.class
-        );
+            ).getBody();
+
+        // Add the current time to each returned StatusResponse
+        statusResponse.setTimestamp(Instant.now().getEpochSecond());
+
+        return statusResponse;
     }
 }

@@ -25,7 +25,6 @@ import java.util.stream.Collectors;
 public class LoginService {
 
     private final RestTemplate template;
-
     private Map sessionInfo = new HashMap();
 
     public LoginService(RestTemplate template) {
