@@ -1,13 +1,13 @@
 = AirWatch Service Status Checker
 Rasmus Sjorslev;
-:forceinclude:
+//:forceinclude:
 :doctype: book
 :icons: font
 :source-highlighter: highlightjs
 :toc: left
 :toclevels: 4
 :sectlinks:
-:snippets: ../../../target/generated-snippets
+//:snippets: ../../../target/generated-snippets
 
 [introduction]
 = Introduction
@@ -99,12 +99,12 @@ A `GET` request will list the properties defined.
 
 include::{snippets}/PropertiesControllerTest/testPropertiesEndpointAndExpectStatus200Response/curl-request.adoc[]
 
-==== Examplre Response
+==== Example Response
 
 include::{snippets}/PropertiesControllerTest/testPropertiesEndpointAndExpectStatus200Response/http-response.adoc[]
 
 Use this to verify that the tenant URL as well as the username provided are correct.
 
-NOTE: The password provided will *not* serialized so it wont show in the output.
+NOTE: The password provided will *not* be serialized so it wont show in the output.
 
 
