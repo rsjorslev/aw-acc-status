@@ -37,6 +37,19 @@ public class AirWatchStatusServiceTest {
     }
 
     @Test
+    public void isServiceStatusSuccess() throws Exception {
+        StatusResponse successResponse = new StatusResponse();
+        successResponse.setSuccess(true);
+
+        StatusResponse failedResponse = new StatusResponse();
+        failedResponse.setSuccess(false);
+
+        assertThat(service.isServiceStatusSuccess(successResponse)).isTrue();
+        assertThat(service.isServiceStatusSuccess(failedResponse)).isFalse();
+
+    }
+
+    @Test
     public void serviceStatusSuccessTest() throws Exception {
         ObjectMapper mapper = new ObjectMapper();
 

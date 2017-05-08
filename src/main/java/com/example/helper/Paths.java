@@ -1,4 +1,4 @@
-package com.example.helpers;
+package com.example.helper;
 
 import com.example.AwProperties;
 import org.springframework.stereotype.Component;

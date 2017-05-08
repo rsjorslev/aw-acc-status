@@ -1,0 +1,110 @@
+= AirWatch Service Status Checker
+Rasmus Sjorslev;
+:forceinclude:
+:doctype: book
+:icons: font
+:source-highlighter: highlightjs
+:toc: left
+:toclevels: 4
+:sectlinks:
+:snippets: ../../../target/generated-snippets
+
+[introduction]
+= Introduction
+
+This is the documentation for the AW Service Status Checker which servers as an adapter for checking the health of on-prem services being used by AirWatch.
+
+
+[overview]
+= Overview
+
+This section covers the REST API endpoints as provided by this application.
+
+[overview-http-verbs]
+== HTTP Verbs
+
+|===
+| Verb | Usage
+
+| `GET`
+| Used to retrieve a status response for either a named service or all monitored services.
+
+| `POST`
+| Used to create a new resource
+
+|===
+
+[http-status-codes]
+== HTTP Status Codes
+
+|===
+| Status code | Usage
+
+| `200 OK`
+| Standard response for successful HTTP requests.
+
+| `400 Bad Request`
+| The server cannot or will not process the request due to something that is perceived to be a client error
+    (e.g., malformed request syntax, invalid request message framing, or deceptive request routing).
+    This is most typically seen if an unreachable AirWatch server is entered of if bad credentials are provided.
+    These will be returned as `400 Bad Request` with an accompanying exception with more information.
+
+| `404 Not Found`
+| The requested resource could not be found but may be available again in the future. Subsequent requests by the client are permissible.
+|===
+
+
+[resources]
+= Resources
+
+== AirWatch Cloud Connector
+This Status Response resource shows the current status for AirWatch Cloud Connector (ACC)
+
+=== Query ACC
+
+A `GET` request will list the current state for the service.
+
+==== Example Request
+
+include::{snippets}/StatusControllerTest/getAccStatusWhenRequestingShouldReturnStatusResponseSuccess/curl-request.adoc[]
+
+==== Example Response
+
+include::{snippets}/StatusControllerTest/getAccStatusWhenRequestingShouldReturnStatusResponseSuccess/http-response.adoc[]
+
+== Active Directory Status
+This Status Response resource shows the current status for AirWatch Cloud Connector (ACC)
+
+=== Query AD
+
+A `GET` request will list the current state for the service.
+
+==== Example Request
+
+include::{snippets}/StatusControllerTest/getAdStatusWhenRequestingShouldReturnStatusResponseSuccess/curl-request.adoc[]
+
+==== Example Response
+
+include::{snippets}/StatusControllerTest/getAdStatusWhenRequestingShouldReturnStatusResponseSuccess/http-response.adoc[]
+
+== Properties
+
+The properties defined in application.properties is exposed as a REST endpoint and can be used to verify that the properties defined are being picked up correctly.
+
+=== Query Properties
+
+A `GET` request will list the properties defined.
+
+==== Example Request
+
+include::{snippets}/PropertiesControllerTest/testPropertiesEndpointAndExpectStatus200Response/curl-request.adoc[]
+
+==== Examplre Response
+
+include::{snippets}/PropertiesControllerTest/testPropertiesEndpointAndExpectStatus200Response/http-response.adoc[]
+
+Use this to verify that the tenant URL as well as the username provided are correct.
+
+NOTE: The password provided will *not* serialized so it wont show in the output.
+
+

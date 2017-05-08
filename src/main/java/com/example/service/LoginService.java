@@ -1,9 +1,11 @@
 package com.example.service;
 
-import com.example.exceptions.AuthenticationException;
-import com.example.helpers.Paths;
-import com.example.helpers.TokenTool;
+import com.example.exception.AuthenticationException;
+import com.example.exception.HostNotFoundException;
+import com.example.helper.Paths;
+import com.example.helper.TokenTool;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
@@ -27,6 +29,7 @@ public class LoginService {
     private final RestTemplate template;
     private Map sessionInfo = new HashMap();
 
+    @Autowired
     public LoginService(RestTemplate template) {
         this.template = template;
     }
@@ -42,11 +45,10 @@ public class LoginService {
                     String.class);
         }
 
-        //TODO: understand how i can throw a custom exception inside the UnknownHostException if
         catch (RestClientException e) {
-            log.debug("inside RestClientException");
             if (e.getCause() instanceof UnknownHostException) {
-                log.debug("inside UnknownHostException");
+                log.error("UnknownHostException occurred: " + e);
+                throw new HostNotFoundException("Could not connect to the provided AW address: " + e.getRootCause().getMessage());
             }
             throw e;
         }
@@ -91,8 +93,7 @@ public class LoginService {
         String cookies = loginResponse.getHeaders().get("Set-Cookie").stream().collect(Collectors.joining(";"));
 
         //TODO: check if it makes more sense to throw AuthenticationException if cookie size == 1 as
-        // it would then be invalid. It needs to be 6 after successful login
-        log.debug("size of cookie header: {}", loginResponse.getHeaders().get("Set-Cookie").size());
+        log.debug("Size of the returned Set-Cookie header from getCookies(): {}", loginResponse.getHeaders().get("Set-Cookie").size());
 
         this.sessionInfo.put("cookie", cookies);
         this.sessionInfo.put("timestamp", Instant.now());

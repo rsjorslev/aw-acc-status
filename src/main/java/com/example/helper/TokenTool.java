@@ -1,4 +1,4 @@
-package com.example.helpers;
+package com.example.helper;
 
 import lombok.extern.slf4j.Slf4j;
 

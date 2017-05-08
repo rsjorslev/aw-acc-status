@@ -1,13 +1,14 @@
 package com.example.service;
 
-import com.example.exceptions.AuthenticationException;
-import com.example.helpers.Paths;
+import com.example.exception.AuthenticationException;
+import com.example.helper.Paths;
+import com.example.model.ServiceName;
 import com.example.model.StatusResponse;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
@@ -21,10 +22,13 @@ public class AirWatchStatusService {
 
     private final RestTemplate template;
     private final LoginService loginService;
+    private final ServiceStateService stateService;
 
-    public AirWatchStatusService(RestTemplate template, LoginService loginService) {
+    @Autowired
+    public AirWatchStatusService(RestTemplate template, LoginService loginService, ServiceStateService stateService) {
         this.template = template;
         this.loginService = loginService;
+        this.stateService = stateService;
     }
 
     boolean isServiceStatusSuccess(StatusResponse response) {
@@ -42,12 +46,14 @@ public class AirWatchStatusService {
     public StatusResponse getAccStatus() throws AuthenticationException {
         StatusResponse accTestResponse = this.getStatus(Paths.TEST_ACC_CONNECTION);
         log.debug("ACC Test Response: {}", accTestResponse);
+        stateService.runServiceStateCheck(accTestResponse, ServiceName.ACC);
         return accTestResponse;
     }
 
     public StatusResponse getDirectoryStatus() throws AuthenticationException {
         StatusResponse adTestResponse = this.getStatus(Paths.TEST_DIRECTORY);
         log.debug("Directory Test Response: {}", adTestResponse);
+        stateService.runServiceStateCheck(adTestResponse, ServiceName.AD);
         return adTestResponse;
     }
 
