@@ -34,7 +34,7 @@ public class LoginService {
         this.template = template;
     }
 
-    private String getLoginToken() {
+    String getLoginToken() {
 
         ResponseEntity<String> response = null;
         try {
