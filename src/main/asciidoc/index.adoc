@@ -12,13 +12,30 @@ Rasmus Sjorslev;
 [introduction]
 = Introduction
 
-This is the documentation for the AW Service Status Checker which servers as an adapter for checking the health of on-prem services being used by AirWatch.
-
+*THIS IS NOT SUPPORTED NOR ENDORSED BY AIRWATCH OR VMWARE SO USE AT YOUR OWN RISK*
 
 [overview]
 = Overview
 
-This section covers the REST API endpoints as provided by this application.
+Quick and dirty service to check ACC status as well as Directory settings. The service simply performs a form-based login to the Console like a regular user would and then performs AJAX calls for either ACC or Directory Settings status just like the console client would and returns the JSON response.
+
+There is currently little to no error checking and the properties required are not verified to exist to please use the /status/props endpoints to verify manually once the service is running.
+
+= Setup
+
+NOTE: Currently this requires an account with Console Administrator permissions as i have not tested with any other roles.
+
+A couple of properties are required for this to work properly. They are:
+
+[source]
+aw.url.tenant=https://TENANT-URL
+aw.login.user=USERNAME
+aw.login.password=PASSWORD
+logging.level.com.example=DEBUG (Optional, but recommended for initial setup)
+
+They can be set by editing the application.properties located at `/etc/runner/config/props/application.properties` on the Virtual Machine. +
+This file gets mapped into the docker container using volumes so it is read by the Spring context upon launch.
+
 
 [overview-http-verbs]
 == HTTP Verbs
