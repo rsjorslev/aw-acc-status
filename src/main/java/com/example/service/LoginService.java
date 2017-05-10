@@ -1,8 +1,8 @@
 package com.example.service;
 
+import com.example.AwProperties;
 import com.example.exception.AuthenticationException;
 import com.example.exception.HostNotFoundException;
-import com.example.helper.Paths;
 import com.example.helper.TokenTool;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,11 +27,23 @@ import java.util.stream.Collectors;
 public class LoginService {
 
     private final RestTemplate template;
+
+    private final AwProperties properties;
+
     private Map sessionInfo = new HashMap();
+    private String tenantUrl;
+    private String loginPath;
+    private String loginUserPath;
+    private String tokenPath;
 
     @Autowired
-    public LoginService(RestTemplate template) {
+    public LoginService(RestTemplate template, AwProperties properties) {
         this.template = template;
+        this.properties = properties;
+        this.tenantUrl = properties.getUrl().getTenant();
+        this.loginPath = properties.getUrl().getLogin();
+        this.loginUserPath = properties.getUrl().getLoginUser();
+        this.tokenPath = properties.getUrl().getRequestVerificationToken();
     }
 
     String getLoginToken() {
@@ -39,7 +51,7 @@ public class LoginService {
         ResponseEntity<String> response = null;
         try {
             response = template.exchange(
-                    Paths.LOGIN_URL,
+                    tenantUrl + loginPath,
                     HttpMethod.GET,
                     null,
                     String.class);
@@ -48,7 +60,7 @@ public class LoginService {
         catch (RestClientException e) {
             if (e.getCause() instanceof UnknownHostException) {
                 log.error("UnknownHostException occurred: " + e);
-                throw new HostNotFoundException("Could not connect to the provided AW address: " + e.getRootCause().getMessage());
+                throw new HostNotFoundException("Could not connect to the provided AW address: " + e.getRootCause().getMessage(), e.getCause());
             }
             throw e;
         }
@@ -78,17 +90,19 @@ public class LoginService {
         MultiValueMap<String, String> map = new LinkedMultiValueMap<>();
 
         map.add("__RequestVerificationToken", this.getLoginToken());
-        map.add("UserName", Paths.USER_NAME);
-        map.add("Password", Paths.PASSWORD);
+        map.add("UserName", properties.getLogin().getUser());
+        map.add("Password", properties.getLogin().getPassword());
         map.add("X-Requested-With", "XMLHttpRequest");
 
         HttpEntity<?> httpEntity = new HttpEntity<>(map, headers);
 
         ResponseEntity<String> loginResponse = template.exchange(
-                Paths.LOGIN_URL_USER,
+                tenantUrl + loginUserPath,
                 HttpMethod.POST,
                 httpEntity,
                 String.class);
+
+        log.debug("Login Response headers: {}", loginResponse.getHeaders());
 
         String cookies = loginResponse.getHeaders().get("Set-Cookie").stream().collect(Collectors.joining(";"));
 
@@ -112,7 +126,7 @@ public class LoginService {
 
         //TODO: come back to this and try/catch handle logic in case of server name given not correct
         ResponseEntity<String> tokenResponse = template.exchange(
-                Paths.REQUEST_VERIFICATION_TOKEN,
+                tenantUrl + tokenPath,
                 HttpMethod.GET,
                 tokenEntity,
                 String.class);

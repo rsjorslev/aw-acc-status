@@ -1,9 +1,10 @@
-= AirWatch Service Status Checker v.1.0.4
+= AirWatch Service Status Checker
 Rasmus Sjorslev;
 //:forceinclude:
 :doctype: book
 :icons: font
 :source-highlighter: highlightjs
+:highlightjs-theme: solarized_light
 :toc: left
 :toclevels: 4
 :sectlinks:
@@ -27,7 +28,7 @@ NOTE: Currently this requires an account with Console Administrator permissions 
 
 A couple of properties are required for this to work properly. They are:
 
-[source]
+[source,text]
 aw.url.tenant=https://TENANT-URL
 aw.login.user=USERNAME
 aw.login.password=PASSWORD

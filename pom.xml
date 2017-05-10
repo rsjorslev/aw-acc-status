@@ -103,6 +103,7 @@
 						<configuration>
 							<backend>html</backend>
 							<doctype>book</doctype>
+							<sourceHighlighter>highlight.js</sourceHighlighter>
 							<outputDirectory>
 								${project.build.outputDirectory}/static/docs
 							</outputDirectory>
