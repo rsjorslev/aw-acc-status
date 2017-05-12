@@ -8,7 +8,7 @@ Rasmus Sjorslev;
 :toc: left
 :toclevels: 4
 :sectlinks:
-:snippets: ../../../target/generated-snippets
+//:snippets: ../../../target/generated-snippets
 
 [introduction]
 = Introduction
