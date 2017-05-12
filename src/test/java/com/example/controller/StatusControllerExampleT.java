@@ -35,6 +35,9 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 
+/**
+ * Only kept as a reference to show the differences vs {@link StatusControllerTest}
+ */
 @RunWith(SpringRunner.class)
 @SpringBootTest
 @AutoConfigureRestDocs(outputDir = "target/generated-snippets", uriHost = "example.com")
@@ -42,9 +45,6 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 //@ActiveProfiles("test")
 @Ignore
 public class StatusControllerTestOLD {
-
-    //TODO: understand mocking (mockito) to i.e. mock the response from RestTemplate as we talked about last time
-    //TODO: understand the lifecycles of maven, especially in terms of splitting Tests and IT (surefire vs failsafe)
 
     @Autowired
     private MockMvc mockMvc;

@@ -17,7 +17,7 @@ import static org.springframework.test.web.client.match.MockRestRequestMatchers.
 import static org.springframework.test.web.client.response.MockRestResponseCreators.withSuccess;
 
 /**
- * This is kept as a reference to show how this differes from the "Spring Way" in {@link LoginServiceTestSpring}
+ * This is kept as a reference to show how this differes from the "Spring Way" in {@link LoginServiceTest}
  */
 @Ignore
 public class LoginServiceTestExample {
