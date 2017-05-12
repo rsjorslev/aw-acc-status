@@ -44,7 +44,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @AutoConfigureMockMvc
 //@ActiveProfiles("test")
 @Ignore
-public class StatusControllerTestOLD {
+public class StatusControllerExampleT {
 
     @Autowired
     private MockMvc mockMvc;

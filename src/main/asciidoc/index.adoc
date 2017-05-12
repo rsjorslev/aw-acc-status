@@ -8,7 +8,7 @@ Rasmus Sjorslev;
 :toc: left
 :toclevels: 4
 :sectlinks:
-//:snippets: ../../../target/generated-snippets
+:snippets: ../../../target/generated-snippets
 
 [introduction]
 = Introduction
@@ -24,22 +24,22 @@ There is currently little to no error checking and the properties required are n
 
 = Setup
 
-NOTE: Currently this requires an account with Console Administrator permissions as i have not tested with any other roles.
+NOTE: Currently this requires an account with Console Administrator permissions.
 
 A couple of properties are required for this to work properly. They are:
 
 [source,text]
-aw.url.tenant=https://TENANT-URL
+aw.url.tenant=https://TENANT-URL #e.g. https://cn763.vmware.com
 aw.login.user=USERNAME
 aw.login.password=PASSWORD
-logging.level.com.example=DEBUG (Optional, but recommended for initial setup)
+logging.level.com.example=DEBUG #(Optional, but recommended for initial setup)
 
 They can be set by editing the application.properties located at `/etc/runner/config/props/application.properties` on the Virtual Machine. +
 This file gets mapped into the docker container using volumes so it is read by the Spring context upon launch.
 
+= HTTP verbs
 
-[overview-http-verbs]
-== HTTP Verbs
+The following HTTP verbs are used in the REST API implementation supported by this application:
 
 |===
 | Verb | Usage
@@ -52,8 +52,7 @@ This file gets mapped into the docker container using volumes so it is read by t
 
 |===
 
-[http-status-codes]
-== HTTP Status Codes
+= HTTP status codes
 
 |===
 | Status code | Usage
@@ -71,8 +70,29 @@ This file gets mapped into the docker container using volumes so it is read by t
 | The requested resource could not be found but may be available again in the future. Subsequent requests by the client are permissible.
 |===
 
+= Headers
 
-[resources]
+Every response has the following headers(s):
+
+|===
+| Name | Description
+
+| `Content-Type`
+| The Content-Type of the payload, e.g. application/json;charset=UTF-8
+
+|===
+
+= Errors
+
+Whenever an error response (status code >= 400) is returned, the body will contain a JSON object that describes the problem. The error object has the following structure:
+
+include::{snippets}/SpringBasicErrorControllerTest/errorExample/response-fields.adoc[]
+
+For example, a request made to `GET` the status of a service when credentials are provided will produce a `400 Bad Request` response:
+
+include::{snippets}/SpringBasicErrorControllerTest/errorExample/http-response.adoc[]
+
+
 = Resources
 
 == AirWatch Cloud Connector

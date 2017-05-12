@@ -20,7 +20,7 @@ import static org.springframework.test.web.client.response.MockRestResponseCreat
  * This is kept as a reference to show how this differes from the "Spring Way" in {@link LoginServiceTest}
  */
 @Ignore
-public class LoginServiceTestExample {
+public class LoginServiceExampleT {
 
     RestTemplate template;
     LoginService service;

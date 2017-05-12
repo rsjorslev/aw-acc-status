@@ -41,7 +41,7 @@ import static org.springframework.test.web.client.response.MockRestResponseCreat
         "aw.url.login=/login",
         "aw.url.login-user=/user"
 })
-public class LoginServiceTestSpring {
+public class LoginServiceTest {
 
     @Rule
     public ExpectedException thrown = ExpectedException.none();

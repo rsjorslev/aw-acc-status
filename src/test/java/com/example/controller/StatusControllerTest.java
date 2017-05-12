@@ -140,7 +140,6 @@ public class StatusControllerTest {
                 .willThrow(HostNotFoundException.class);
 
         this.mockMvc.perform(get("/status/acc"))
-                .andDo(print())
                 .andExpect(status().isBadRequest());
     }
 
