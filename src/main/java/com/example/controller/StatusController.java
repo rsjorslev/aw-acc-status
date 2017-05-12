@@ -1,19 +1,18 @@
 package com.example.controller;
 
 import com.example.exception.AuthenticationException;
-import com.example.exception.HostNotFoundException;
 import com.example.model.ServiceName;
 import com.example.model.ServiceStateDetails;
 import com.example.model.StatusResponse;
 import com.example.service.AirWatchStatusService;
 import com.example.service.ServiceStateService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.util.Map;
-import java.util.Objects;
 
 @RestController
 @RequestMapping(value = "/status")
