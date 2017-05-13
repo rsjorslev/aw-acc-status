@@ -1,10 +1,15 @@
 pipeline {
-  agent any
+  agent {
+    docker {
+      image 'maven'
+      args '3.3.3'
+    }
+    
+  }
   stages {
     stage('Unit Tests') {
       steps {
-        sh 'mvn -B -V -U -e clean test'
-        tool(name: 'maven339', type: 'Maven')
+        sh 'mvn --version'
       }
     }
   }
