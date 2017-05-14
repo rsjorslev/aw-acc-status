@@ -8,7 +8,7 @@ pipeline {
   stages {
     stage('Unit Tests') {
       steps {
-        sh 'mvn --version'
+        sh 'mvn clean test'
       }
     }
   }
