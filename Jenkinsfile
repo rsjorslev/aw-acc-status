@@ -1,12 +1,7 @@
 pipeline {
-  agent {
-    docker {
-      image 'maven:3.3.9'
-    }
-    
-  }
+  agent any
   stages {
-    stage('Unit Tests') {
+    stage('Test') {
       steps {
         sh 'env'
       }
