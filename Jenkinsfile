@@ -4,7 +4,7 @@ pipeline {
     maven 'maven339'
   }
   stages {
-    stage ('Initialize') {
+    stage ('Echo Maven and Path') {
       steps {
         sh '''
             echo "PATH = ${PATH}"
@@ -12,22 +12,24 @@ pipeline {
         ''' 
       }
     }
+    /*
     stage('Setup') {
       steps {
         sh 'env'
       }
     }
-    stage('Maven info') {
+    */
+    stage('Build') {
       steps {
-        sh 'mvn --version'
+        sh 'mvn -B -V -U -e clean install'
       }
     }
   }
   post {
     always {
       echo 'One way or another, I have finished'
-      //junit 'target/surefire-reports/**/*.xml'
-      //archive 'target/**/*.jar'
+      junit 'target/surefire-reports/**/*.xml'
+      archive 'target/**/*.jar'
       //deleteDir() /* clean up our workspace */
     }
     success {
