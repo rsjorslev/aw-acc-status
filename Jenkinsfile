@@ -8,16 +8,7 @@ pipeline {
   stages {
     stage('Unit Tests') {
       steps {
-        parallel(
-          "Unit Tests": {
-            sh 'mvn clean test'
-            
-          },
-          "Environment": {
-            sh 'echo ${env}'
-            
-          }
-        )
+        sh 'env'
       }
     }
   }
