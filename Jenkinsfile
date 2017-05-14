@@ -3,11 +3,21 @@ pipeline {
     docker {
       image 'maven:3.3.9'
     }
+    
   }
   stages {
     stage('Unit Tests') {
       steps {
-        sh 'mvn clean test'
+        parallel(
+          "Unit Tests": {
+            sh 'mvn clean test'
+            
+          },
+          "Environment": {
+            sh 'echo ${env}'
+            
+          }
+        )
       }
     }
   }
@@ -15,6 +25,8 @@ pipeline {
     always {
       junit 'target/surefire-reports/**/*.xml'
       archive 'target/**/*.jar'
+      
     }
+    
   }
 }
