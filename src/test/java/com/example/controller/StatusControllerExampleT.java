@@ -1,3 +1,4 @@
+/*
 package com.example.controller;
 
 import com.example.exception.HostNotFoundException;
@@ -35,9 +36,8 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 
-/**
- * Only kept as a reference to show the differences vs {@link StatusControllerTest}
- */
+Only kept as a reference to show the differences vs {@link StatusControllerTest}
+
 @RunWith(SpringRunner.class)
 @SpringBootTest
 @AutoConfigureRestDocs(outputDir = "target/generated-snippets", uriHost = "example.com")
@@ -155,3 +155,4 @@ public class StatusControllerExampleT {
     }
 
 }
+*/
