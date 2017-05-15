@@ -29,7 +29,7 @@ pipeline {
     always {
       echo 'One way or another, I have finished'
       junit 'target/surefire-reports/**/*.xml'
-      archiveArtifacts(artifacts: 'target/*.jar', onlyIfSuccessful: true, fingerprint: true)
+      archiveArtifacts(artifacts: 'target/*.jar, target/classes/static/docs/*.html', onlyIfSuccessful: true, fingerprint: true)
       //deleteDir() /* clean up our workspace */
     }
     success {
