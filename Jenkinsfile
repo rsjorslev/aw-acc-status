@@ -12,7 +12,9 @@ pipeline {
     stage('Echo credentials') {
       steps {
         sh '''echo "this is a test to show creds"
-echo "these are the creds ${CREDS}"'''
+echo "these are the creds ${CREDS}"
+echo "user ${CREDS_USR}"
+echo "pass ${CREDS_PSW}"'''
       }
     }
     stage('Build') {
