@@ -19,7 +19,7 @@ echo "user ${CREDS_USR}"
 echo "pass ${CREDS_PSW}"
 echo "foo: ${FOO}"
 echo "env ${env}"'''
-        echo '"Running ${env.BUILD_ID} on ${env.JENKINS_URL}"'
+        echo "Running ${env.BUILD_ID} on ${env.JENKINS_URL}"
       }
     }
     stage('Build') {
