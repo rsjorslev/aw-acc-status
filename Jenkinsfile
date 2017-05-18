@@ -17,7 +17,7 @@ pipeline {
     }
     stage ('Echo credentials') {
       steps {
-        sh 'echo ${env.CREDS}'
+        sh 'echo ${CREDS}'
       }
     }
     /*
