@@ -3,6 +3,9 @@ pipeline {
   tools { 
     maven 'maven339'
   }
+  environment {
+   CREDS = credentials('be90085a-9415-4dfb-b680-1103763952bc')
+  }
   stages {
     stage ('Echo Maven and Path') {
       steps {
@@ -10,6 +13,11 @@ pipeline {
             echo "PATH = ${PATH}"
             echo "M2_HOME = ${M2_HOME}"
         ''' 
+      }
+    }
+    stage ('Echo credentials') {
+      steps {
+        sh 'echo ${env.CREDS}'
       }
     }
     /*
