@@ -14,7 +14,8 @@ pipeline {
         sh '''echo "this is a test to show creds"
 echo "these are the creds ${CREDS}"
 echo "user ${CREDS_USR}"
-echo "pass ${CREDS_PSW}"'''
+echo "pass ${CREDS_PSW}"
+echo "foo: ${FOO}"'''
       }
     }
     stage('Build') {
@@ -28,6 +29,7 @@ echo "pass ${CREDS_PSW}"'''
   }
   environment {
     CREDS = credentials('be90085a-9415-4dfb-b680-1103763952bc')
+    FOO = 'bar'
   }
   post {
     always {
