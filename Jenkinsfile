@@ -15,7 +15,8 @@ pipeline {
 echo "these are the creds ${CREDS}"
 echo "user ${CREDS_USR}"
 echo "pass ${CREDS_PSW}"
-echo "foo: ${FOO}"'''
+echo "foo: ${FOO}"
+echo "env ${env}"'''
       }
     }
     stage('Build') {
