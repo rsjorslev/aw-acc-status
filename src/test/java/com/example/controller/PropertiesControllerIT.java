@@ -2,6 +2,7 @@ package com.example.controller;
 
 
 import com.example.AwProperties;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,6 +23,7 @@ public class PropertiesControllerIT {
     private TestRestTemplate template;
 
     @Test
+    @Ignore
     public void getProperties() throws Exception {
         ResponseEntity<AwProperties> props = template.exchange(
                 "/props",
