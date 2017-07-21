@@ -15,6 +15,11 @@ pipeline {
         sh 'mvn -B -V -U -e clean test'
       }
     }
+    stage('Build') {
+      steps {
+        sh 'mvn -B -V -U -e clean install'
+      }
+    }
   }
   post {
     always {
