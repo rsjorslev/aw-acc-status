@@ -18,6 +18,19 @@ pipeline {
       steps {
         sh 'mvn -B -V -U -e clean install'
       }
+    }   
+    stage ('Artifactory Deploy') {
+      steps {
+        script {
+          def server = Artifactory.server('artifactory01')
+          def rtMaven = Artifactory.newMavenBuild()
+          rtMaven.resolver server: server, releaseRepo: 'libs-release', snapshotRepo: 'libs-snapshot'
+          rtMaven.deployer server: server, releaseRepo: 'libs-release-local', snapshotRepo: 'libs-snapshot-local'
+          rtMaven.tool = 'maven339'
+          def buildInfo = rtMaven.run pom: 'pom.xml', goals: 'install'
+          server.publishBuildInfo buildInfo
+        }
+      }
     }
   }
   post {
