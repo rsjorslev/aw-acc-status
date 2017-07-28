@@ -23,7 +23,6 @@ public class PropertiesControllerIT {
     private TestRestTemplate template;
 
     @Test
-    @Ignore
     public void getProperties() throws Exception {
         ResponseEntity<AwProperties> props = template.exchange(
                 "/props",
@@ -31,7 +30,7 @@ public class PropertiesControllerIT {
                 null,
                 AwProperties.class);
 
-        assertThat(props.getStatusCode()).isEqualTo(HttpStatus.BAD_REQUEST);
+        assertThat(props.getStatusCode()).isEqualTo(HttpStatus.OK);
 
     }
 }
