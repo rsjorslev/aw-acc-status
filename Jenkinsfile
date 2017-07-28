@@ -23,7 +23,9 @@ pipeline {
       steps {
         script {
           docker.withRegistry('https://artifactory01.tstdmn.dk:5001', 'artifactory-admin') {
-            docker.build('aw-acc-status:${env.BUILD_TAG}').push('latest')
+            def newApp = docker.build "aw-acc-status:${env.BUILD_TAG}"
+            newApp.push()
+            //docker.build('aw-acc-status:${env.BUILD_TAG}').push('latest')
           }
         }
       }
