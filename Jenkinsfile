@@ -19,19 +19,28 @@ pipeline {
         sh 'mvn -B -V -U -e clean install'
       }
     }   
-    stage ('Artifactory Deploy') {
+    stage('Create Docker Image') {
       steps {
         script {
-          def server = Artifactory.server('artifactory01')
-          def rtMaven = Artifactory.newMavenBuild()
-          rtMaven.resolver server: server, releaseRepo: 'libs-release', snapshotRepo: 'libs-snapshot'
-          rtMaven.deployer server: server, releaseRepo: 'libs-release-local', snapshotRepo: 'libs-snapshot-local'
-          rtMaven.tool = 'maven339'
-          def buildInfo = rtMaven.run pom: 'pom.xml', goals: 'install'
-          server.publishBuildInfo buildInfo
+          docker.withRegistry('https://artifactory01.tstdmn.dk:5001', 'artifactory-admin') {
+            docker.build('myapp').push('latest')
+          }
         }
       }
     }
+//    stage ('Artifactory Deploy') {
+//      steps {
+//        script {
+//          def server = Artifactory.server('artifactory01')
+//          def rtMaven = Artifactory.newMavenBuild()
+//          rtMaven.resolver server: server, releaseRepo: 'libs-release', snapshotRepo: 'libs-snapshot'
+//          rtMaven.deployer server: server, releaseRepo: 'libs-release-local', snapshotRepo: 'libs-snapshot-local'
+//          rtMaven.tool = 'maven339'
+//          def buildInfo = rtMaven.run pom: 'pom.xml', goals: 'install'
+//          server.publishBuildInfo buildInfo
+//        }
+//      }
+//    }
   }
   post {
     always {
